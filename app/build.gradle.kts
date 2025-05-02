@@ -1,7 +1,11 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "1.9.10"
+    id("kotlin-kapt")
 }
 
 android {
@@ -16,6 +20,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
     }
 
     buildTypes {
@@ -36,6 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -56,4 +65,45 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    val kotlin_redux_ver = "0.5.5"
+
+    implementation("org.reduxkotlin:redux-kotlin-threadsafe-jvm:$kotlin_redux_ver")
+    implementation("org.reduxkotlin:redux-kotlin-thunk:$kotlin_redux_ver")
+
+
+    val ktorVersion = "2.3.7"
+    val serializationVersion = "1.8.0"
+
+    dependencies {
+        implementation("io.ktor:ktor-client-core:$ktorVersion")
+        implementation("io.ktor:ktor-client-cio:$ktorVersion")
+        implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+        implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+    }
+
+    val nav_version = "2.7.4"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    val retrofir_version = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofir_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofir_version")
+
+    val lifecycle_version = "2.8.7"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+
+    val coil_version = "3.0.4"
+    implementation("io.coil-kt.coil3:coil-compose:$coil_version")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:$coil_version")
+    implementation("androidx.compose.runtime:runtime-livedata:1.7.6")
+
+    val room = "2.6.0"
+
+    // Room
+    implementation("androidx.room:room-runtime:$room")
+    implementation("androidx.room:room-ktx:$room")
+    kapt("androidx.room:room-compiler:$room")
+
 }
