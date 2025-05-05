@@ -23,6 +23,7 @@ android {
 
         val properties = Properties()
         properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField("String", "API_BASE_URL", properties.getProperty("API_BASE_URL"))
         buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
     }
 
@@ -65,6 +66,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+    implementation("androidx.compose.material3:material3:1.2.1")
 
     val kotlin_redux_ver = "0.5.5"
 

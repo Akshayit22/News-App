@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import com.aks.hotnews.ui.navigation.NavigationGraph
 import com.aks.hotnews.ui.theme.HotNewsTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(WindowInsets.safeDrawing.asPaddingValues()) // respect status bar
                     ) {
-                        HelloWorld()
+                        NavigationGraph()
                     }
                 }
             }
@@ -47,7 +48,7 @@ class MainActivity : ComponentActivity() {
 fun HelloWorld(){
     val apiKey = BuildConfig.API_KEY
     Text(
-        text = "$apiKey"
+        text = apiKey
     )
 }
 
