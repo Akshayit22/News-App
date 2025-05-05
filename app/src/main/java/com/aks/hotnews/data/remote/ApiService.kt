@@ -7,25 +7,24 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET
+    @GET("/top-news")
     suspend fun getTopNews(
         @Query("api-key") apiKey: String,
-        @Query("language") language: String,
-        @Query("source-countries") sourceCountries: String,
+        @Query("language") language: String = "en",
+        @Query("source-country") sourceCountries: String = "us",
         @Query("date") date: String? = null // 2025-05-01
     ): TopNews
 
-    @GET
+    @GET("/search-news")
     suspend fun searchNews(
         @Query("api-key") apiKey: String,
-        @Query("language") language: String,
-        @Query("source-countries") sourceCountries: String? = null,
-        @Query("offset") offset: Int,
-        @Query("number") number: Int,
+        @Query("language") language: String = "en",
+        @Query("source-countries") sourceCountries: String? = "us",
+        @Query("offset") offset: Int = 0,
+        @Query("number") number: Int = 10,
         @Query("text") text: String? = null,
         @Query("earliest-publish-date") earliestPublishDate: String? = null, //today, 2025-05-02
-        @Query("sort") sort: String? = null, // publish-time
-        @Query("sort-direction") sortDirection: String? = null, // ASC or DESC
+        @Query("sort") sort: String? = "publish-time", // publish-time
+        @Query("sort-direction") sortDirection: String? = "DESC", // ASC or DESC
     ): NewsModel
-
 }
