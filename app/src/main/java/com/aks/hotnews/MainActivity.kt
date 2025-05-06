@@ -12,12 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import com.aks.hotnews.ui.navigation.NavigationGraph
+import com.aks.hotnews.ui.navigation.BottomNav
 import com.aks.hotnews.ui.theme.HotNewsTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,26 +33,10 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(WindowInsets.safeDrawing.asPaddingValues()) // respect status bar
                     ) {
-                        NavigationGraph()
+                        BottomNav()
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun HelloWorld(){
-    val apiKey = BuildConfig.API_KEY
-    Text(
-        text = apiKey
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    HotNewsTheme {
-        HelloWorld()
     }
 }

@@ -1,25 +1,29 @@
 package com.aks.hotnews.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.aks.hotnews.ui.screens.detail.Detail
-import com.aks.hotnews.ui.screens.home.Home
+import com.aks.hotnews.ui.screens.detail.DetailScreen
+import com.aks.hotnews.ui.screens.home.HomeScreen
+import com.aks.hotnews.ui.screens.searchNews.SearchNewsScreens
+import com.aks.hotnews.ui.screens.settings.SettingsScreen
 
 @Composable
-fun NavigationGraph(){
-    val navController = rememberNavController()
-
-    NavHost(navController, startDestination = Screen.Home.route){
-
-        composable(route = Screen.Home.route){
-            Home(navController)
+fun MyNavGraph(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = Home::class.simpleName!!) {
+        composable(Home::class.simpleName!!) {
+            HomeScreen(navController)
         }
-
-        composable(route = Screen.Detail.route){
-            Detail(navController)
+        composable(Inbox::class.simpleName!!) {
+            SearchNewsScreens()
         }
-
+        composable(Account::class.simpleName!!) {
+            SettingsScreen()
+        }
+        composable("detail") {
+            DetailScreen()
+        }
     }
 }
+

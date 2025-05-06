@@ -103,7 +103,7 @@ fun NewsScreen(viewModel: NewsViewModel = remember { NewsViewModel() }) {
         state.searchNews != null -> {
             LazyColumn {
                 items(state.searchNews.news) { article ->
-                    Text(article.title ?: "No title", modifier = Modifier.padding(8.dp))
+                    Text(article.title, modifier = Modifier.padding(8.dp))
                 }
             }
         }

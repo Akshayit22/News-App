@@ -16,11 +16,6 @@ import androidx.navigation.NavController
 
 
 @Composable
-fun Detail(navController: NavController){
-    Column (
-        modifier = Modifier.fillMaxSize(),
-    ){
-        Text("Detail screen")
-
-    }
+fun DetailScreen() {
+    Text(text = "Detail", fontSize = 32.sp)
 }
