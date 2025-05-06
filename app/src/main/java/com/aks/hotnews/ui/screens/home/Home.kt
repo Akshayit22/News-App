@@ -11,6 +11,8 @@ import androidx.navigation.NavController
 @Composable
 fun HomeScreen(navController: NavController) {
 
+    //NewsScreen()
+
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "Home", fontSize = 32.sp)
 
@@ -26,6 +28,6 @@ fun HomeScreen(navController: NavController) {
 
 //        NewsScreen(NewsViewModel())
 
-//        NewsScreen()
+
 
 }

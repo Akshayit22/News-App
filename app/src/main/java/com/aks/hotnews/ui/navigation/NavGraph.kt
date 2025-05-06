@@ -1,5 +1,6 @@
 package com.aks.hotnews.ui.navigation
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,15 +16,23 @@ fun MyNavGraph(navController: NavHostController) {
         composable(Home::class.simpleName!!) {
             HomeScreen(navController)
         }
-        composable(Inbox::class.simpleName!!) {
+        composable(Search::class.simpleName!!) {
             SearchNewsScreens()
         }
-        composable(Account::class.simpleName!!) {
+        composable(Settings::class.simpleName!!) {
             SettingsScreen()
         }
         composable("detail") {
             DetailScreen()
         }
+
+        composable(Saved::class.simpleName!!) {
+            SavedScreen()
+        }
     }
 }
 
+@Composable
+fun SavedScreen(){
+    Text("SavedScreen")
+}

@@ -76,7 +76,9 @@ fun NewsScreen(viewModel: NewsViewModel = remember { NewsViewModel() }) {
         // Example: Fetch top news on screen load
         //viewModel.fetchTopNews(language = "en", country = "us")
         // OR for search page:
-        viewModel.fetchSearchNews(language = "en", offset = 1, number = 10, text = "india+pakistan")
+        if(state.searchNews == null){
+            viewModel.fetchSearchNews(language = "en", offset = 1, number = 50, text = "india+pakistan")
+        }
     }
 
     when {

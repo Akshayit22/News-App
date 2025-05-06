@@ -20,7 +20,7 @@ fun createNewsMiddleware(repository: NewsRepository): Middleware<AppState> = { s
                                 language = action.language,
                                 country = action.country,
                             )
-                            println("Response: ${result}")
+                            //println("Response: ${result}")
                             store.dispatch(NewsAction.TopNewsSuccess(result))
                         } catch (e: Exception) {
                             store.dispatch(NewsAction.Error(e.message ?: "Unknown error"))
@@ -42,7 +42,7 @@ fun createNewsMiddleware(repository: NewsRepository): Middleware<AppState> = { s
                                 sort = action.sort,
                                 sortDirection = action.sortDirection
                             )
-                            println("Response: ${result}")
+                            //println("Response: ${result}")
                             store.dispatch(NewsAction.SearchNewsSuccess(result))
                         } catch (e: Exception) {
                             store.dispatch(NewsAction.Error(e.message ?: "Unknown error"))
