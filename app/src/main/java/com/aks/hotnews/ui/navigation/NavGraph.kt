@@ -1,5 +1,6 @@
 package com.aks.hotnews.ui.navigation
 
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -33,6 +34,10 @@ fun MyNavGraph(navController: NavHostController) {
 }
 
 @Composable
-fun SavedScreen(){
-    Text("SavedScreen")
+fun SavedScreen() {
+    LazyColumn {
+        items(100) {
+            Text(text = "SavedScreen")
+        }
+    }
 }
