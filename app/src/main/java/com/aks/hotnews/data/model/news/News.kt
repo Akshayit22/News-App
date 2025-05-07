@@ -14,5 +14,5 @@ data class News(
     val text: String,
     val title: String,
     val url: String,
-    val video: Any
+    val video: Any?
 )

@@ -67,8 +67,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    val compose_version = "1.8.0"
+    implementation("androidx.compose.material3:material3:1.3.2")
 
-    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.ui:ui:$compose_version")
+    implementation("androidx.compose.material:material:$compose_version")
+    implementation("androidx.compose.ui:ui-tooling-preview:$compose_version")
+
 
     val kotlin_redux_ver = "0.5.5"
 

@@ -7,11 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.aks.hotnews.utils.helper.newsList
 
 @Composable
 fun HomeScreen(navController: NavController) {
 
     //NewsScreen()
+    val data = newsList
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text = "Home", fontSize = 32.sp)
@@ -22,11 +24,9 @@ fun HomeScreen(navController: NavController) {
             Text("Go to Detail")
         }
     }
-//        LanguageDropdown(languages)
-//
-//        CountryDropdown(countries)
 
 //        NewsScreen(NewsViewModel())
+
 
 
 
