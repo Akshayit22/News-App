@@ -41,7 +41,7 @@ fun BottomNav() {
         }
     ) {
         Box(
-            modifier = Modifier.fillMaxSize().padding(start = 4.dp, end = 4.dp, bottom = 100.dp),
+            modifier = Modifier.fillMaxSize()
         ) {
             MyNavGraph(navController = navController)
         }

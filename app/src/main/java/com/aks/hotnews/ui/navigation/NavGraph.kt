@@ -1,19 +1,19 @@
 package com.aks.hotnews.ui.navigation
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.aks.hotnews.data.model.news.News
 import com.aks.hotnews.ui.screens.detail.DetailScreen
 import com.aks.hotnews.ui.screens.home.HomeScreen
 import com.aks.hotnews.ui.screens.searchNews.SearchNewsScreens
 import com.aks.hotnews.ui.screens.settings.SettingsScreen
+import com.google.gson.Gson
 
 @Composable
 fun MyNavGraph(navController: NavHostController) {
@@ -21,16 +21,23 @@ fun MyNavGraph(navController: NavHostController) {
         composable(Home::class.simpleName!!) {
             HomeScreen(navController)
         }
+        composable(
+            route = "detail/{newsJson}",
+            arguments = listOf(navArgument("newsJson") {
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            val jsonUser = backStackEntry.arguments?.getString("newsJson")
+            val news = Gson().fromJson(jsonUser, News::class.java)
+            DetailScreen(news, {navController.popBackStack()})
+        }
+
         composable(Search::class.simpleName!!) {
             SearchNewsScreens()
         }
         composable(Settings::class.simpleName!!) {
             SettingsScreen()
         }
-        composable("detail") {
-            DetailScreen()
-        }
-
         composable(Saved::class.simpleName!!) {
             SavedScreen()
         }

@@ -1,7 +1,7 @@
 package com.aks.hotnews.data.model.news
 
 data class News(
-    val author: String,
+    val author: String?,
     val authors: List<String>,
     val category: String,
     val id: Int,
