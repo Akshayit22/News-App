@@ -1,8 +1,9 @@
-package com.aks.hotnews.ui.screens.searchNews
+package com.aks.hotnews.ui.screens.saved
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Refresh
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchNewsScreens() {
+fun SavedScreen() {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold(
         modifier = Modifier
@@ -51,8 +52,12 @@ fun SearchNewsScreens() {
         Column(
             modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding(), bottom = 100.dp)
         ) {
-            Text(text = "Account", fontSize = 32.sp)
+            LazyColumn{
+                items(100) { index ->
+                    Text(text = "SavedScreen + $index")
+                }
+            }
+
         }
     }
-
 }

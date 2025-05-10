@@ -1,17 +1,15 @@
 package com.aks.hotnews.ui.navigation
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.ui.graphics.vector.ImageVector
-
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -45,9 +43,9 @@ val NavItems = listOf<NavItemState>(
         unselectedIcon = Icons.Outlined.Search
     ),
     NavItemState(
-        "Saved News",
-        selectedIcon = Icons.Filled.Favorite,
-        unselectedIcon = Icons.Outlined.FavoriteBorder
+        "Saved",
+        selectedIcon = Icons.Filled.Star,
+        unselectedIcon = Icons.Outlined.Star
     ),
     NavItemState(
         "Settings",

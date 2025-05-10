@@ -1,7 +1,5 @@
 package com.aks.hotnews.ui.navigation
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,6 +10,7 @@ import com.aks.hotnews.data.model.news.News
 import com.aks.hotnews.redux.news.AppState
 import com.aks.hotnews.ui.screens.detail.DetailScreen
 import com.aks.hotnews.ui.screens.home.HomeScreen
+import com.aks.hotnews.ui.screens.saved.SavedScreen
 import com.aks.hotnews.ui.screens.searchNews.SearchNewsScreens
 import com.aks.hotnews.ui.screens.settings.SettingsScreen
 import com.google.gson.Gson
@@ -19,7 +18,7 @@ import org.reduxkotlin.Store
 
 @Composable
 fun MyNavGraph(navController: NavHostController, store: Store<AppState>) {
-    NavHost(navController = navController, startDestination = Home::class.simpleName!!) {
+    NavHost(navController = navController, startDestination = Search::class.simpleName!!) {
         composable(Home::class.simpleName!!) {
             HomeScreen(navController, store)
         }
@@ -43,15 +42,6 @@ fun MyNavGraph(navController: NavHostController, store: Store<AppState>) {
         }
         composable(Saved::class.simpleName!!) {
             SavedScreen()
-        }
-    }
-}
-
-@Composable
-fun SavedScreen() {
-    LazyColumn{
-        items(100) { index ->
-            Text(text = "SavedScreen + $index")
         }
     }
 }

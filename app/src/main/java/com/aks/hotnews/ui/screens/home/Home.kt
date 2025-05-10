@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aks.hotnews.redux.news.AppState
-import com.aks.hotnews.utils.helper.newsList
 import org.reduxkotlin.Store
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,7 +53,7 @@ fun HomeScreen(navController: NavController, store: Store<AppState>) {
             CenterAlignedTopAppBar(
                 title = { Text("Hot News", fontSize = 18.sp, fontStyle = FontStyle.Italic) },
                 navigationIcon = {
-                    IconButton(onClick = { viewModel }) {
+                    IconButton(onClick = { }) {
                         Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
                     }
                 },
