@@ -5,7 +5,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,10 +20,16 @@ import androidx.navigation.NavController
 import com.aks.hotnews.ui.components.news.NewsItem
 
 
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
     val state = viewModel.state.value
     val page = viewModel.topNewsPage.value
+
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = viewModel.pullToRefreshState.value,
+        onRefresh = { viewModel.topNewsPageRefresh() }
+    )
 
     LaunchedEffect(Unit) {
         if (state.topNews == null) {
@@ -49,12 +60,28 @@ fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
 
         state.topNews != null -> {
             val newsList = state.topNews.top_news[page].news
-
-            LazyColumn {
-                items(newsList) { article ->
-                    NewsItem(article, navController = navController)
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .pullRefresh(pullRefreshState)
+            ) {
+                LazyColumn {
+                    items(newsList) { article ->
+                        NewsItem(article, navController = navController)
+                    }
                 }
+                PullRefreshIndicator(
+                    refreshing = viewModel.pullToRefreshState.value,
+                    state = pullRefreshState,
+                    modifier = Modifier.align(Alignment.TopCenter)
+                )
             }
+
+//            LazyColumn {
+//                items(newsList) { article ->
+//                    NewsItem(article, navController = navController)
+//                }
+//            }
         }
 
 //        state.searchNews != null -> {

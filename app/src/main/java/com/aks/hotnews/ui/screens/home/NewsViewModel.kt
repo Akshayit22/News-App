@@ -4,9 +4,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.aks.hotnews.redux.news.AppState
 import com.aks.hotnews.redux.news.actions.NewsAction
 import com.aks.hotnews.redux.news.state.NewsState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.reduxkotlin.Store
 
 class NewsViewModel(val store: Store<AppState>) : ViewModel() {
@@ -15,7 +18,11 @@ class NewsViewModel(val store: Store<AppState>) : ViewModel() {
     val state: State<NewsState> = _state
 
     private val _topNewsPage = mutableIntStateOf(0)
+    private val _pullToRefreshState = mutableStateOf(false)
+
+    var pullToRefreshState: State<Boolean> = _pullToRefreshState
     var topNewsPage: State<Int> = _topNewsPage
+
 
     init {
         store.subscribe {
@@ -64,11 +71,19 @@ class NewsViewModel(val store: Store<AppState>) : ViewModel() {
     }
 
     fun topNewsPageRefresh(){
-        val maxPages = _state.value.topNews!!.top_news.size - 1
-        if (_topNewsPage.intValue < maxPages) {
-            _topNewsPage.intValue += 1
-        } else {
-            _topNewsPage.intValue = (0 until maxPages).random()
+        _pullToRefreshState.value = true
+
+        viewModelScope.launch {
+            delay(500) // Delay added here
+
+            val maxPages = _state.value.topNews!!.top_news.size - 1
+            if (_topNewsPage.intValue < maxPages) {
+                _topNewsPage.intValue += 1
+            } else {
+                _topNewsPage.intValue = (0 until maxPages).random()
+            }
+
+            _pullToRefreshState.value = false
         }
     }
 }
