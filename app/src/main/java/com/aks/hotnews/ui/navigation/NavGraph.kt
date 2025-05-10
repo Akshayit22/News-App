@@ -9,18 +9,21 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.aks.hotnews.data.model.news.News
+import com.aks.hotnews.redux.news.AppState
 import com.aks.hotnews.ui.screens.detail.DetailScreen
 import com.aks.hotnews.ui.screens.home.HomeScreen
 import com.aks.hotnews.ui.screens.searchNews.SearchNewsScreens
 import com.aks.hotnews.ui.screens.settings.SettingsScreen
 import com.google.gson.Gson
+import org.reduxkotlin.Store
 
 @Composable
-fun MyNavGraph(navController: NavHostController) {
+fun MyNavGraph(navController: NavHostController, store: Store<AppState>) {
     NavHost(navController = navController, startDestination = Home::class.simpleName!!) {
         composable(Home::class.simpleName!!) {
-            HomeScreen(navController)
+            HomeScreen(navController, store)
         }
+
         composable(
             route = "detail/{newsJson}",
             arguments = listOf(navArgument("newsJson") {

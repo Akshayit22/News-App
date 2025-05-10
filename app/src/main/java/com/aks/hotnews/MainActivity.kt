@@ -14,14 +14,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import com.aks.hotnews.redux.news.AppState
+import com.aks.hotnews.redux.news.StoreProvider
 import com.aks.hotnews.ui.navigation.BottomNav
 import com.aks.hotnews.ui.theme.HotNewsTheme
+import org.reduxkotlin.Store
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        val store: Store<AppState> = StoreProvider.store
+
         setContent {
             HotNewsTheme {
                 Surface(
@@ -33,7 +39,7 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(WindowInsets.safeDrawing.asPaddingValues()),
                     ) {
-                        BottomNav()
+                        BottomNav(store)
                     }
                 }
             }

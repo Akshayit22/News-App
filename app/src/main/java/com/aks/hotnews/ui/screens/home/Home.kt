@@ -1,44 +1,37 @@
 package com.aks.hotnews.ui.screens.home
 
-import android.net.Uri
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil3.compose.AsyncImage
-import com.aks.hotnews.data.model.news.News
-import com.aks.hotnews.ui.components.news.NewsItem
+import com.aks.hotnews.redux.news.AppState
 import com.aks.hotnews.utils.helper.newsList
-import com.google.gson.Gson
+import org.reduxkotlin.Store
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(navController: NavController, store: Store<AppState>) {
 
-    val data = newsList
+//    val data = newsList
+
     //NewsScreen(remember { NewsViewModel() },navController)
 
 //    Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -52,12 +45,48 @@ fun HomeScreen(navController: NavController) {
 //        //NewsScreen(NewsViewModel())
 //    }
 
-    LazyColumn(
-        modifier = Modifier.padding(bottom = 100.dp)
-    ) {
-        items(data) { news ->
-            NewsItem(news,navController)
+    val viewModel = remember { NewsViewModel(store) }
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(connection = scrollBehavior.nestedScrollConnection),
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = { Text("Hot News", fontSize = 18.sp, fontStyle = FontStyle.Italic) },
+                navigationIcon = {
+                    IconButton(onClick = { viewModel }) {
+                        Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        viewModel.topNewsPageRefresh()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.Refresh,
+                            contentDescription = "Mark as favorite"
+                        )
+                    }
+                },
+                scrollBehavior = scrollBehavior,
+            )
         }
+    ){ paddingValues ->
+        Column(
+            modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding(), bottom = 100.dp)
+        ) {
+            NewsScreen(viewModel,navController)
+        }
+//        LazyColumn(
+//            modifier = Modifier.padding(top = paddingValues.calculateTopPadding(), bottom = 100.dp)
+//        ) {
+//            items(data) { news ->
+//                NewsItem(news,navController)
+//            }
+//        }
     }
+
+
 
 }

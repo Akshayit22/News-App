@@ -4,16 +4,18 @@ import com.aks.hotnews.data.repository.NewsRepository
 import com.aks.hotnews.redux.news.AppState
 import com.aks.hotnews.redux.news.actions.NewsAction
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.reduxkotlin.Middleware
 
-fun createNewsMiddleware(repository: NewsRepository, scope: CoroutineScope): Middleware<AppState> = { store ->
+fun createNewsMiddleware(repository: NewsRepository = NewsRepository()): Middleware<AppState> = { store ->
     { next ->
         { action ->
             when (action) {
                 is NewsAction.FetchTopNews -> {
                     store.dispatch(NewsAction.Loading)
-                    scope.launch {
+
+                    CoroutineScope(Dispatchers.IO).launch {
                         try {
                             val result = repository.getTopNews(
                                 language = action.language,
@@ -29,7 +31,7 @@ fun createNewsMiddleware(repository: NewsRepository, scope: CoroutineScope): Mid
 
                 is NewsAction.FetchSearchNews -> {
                     store.dispatch(NewsAction.Loading)
-                    scope.launch {
+                    CoroutineScope(Dispatchers.IO).launch {
                         try {
                             val result = repository.searchNews(
                                 language = action.language,

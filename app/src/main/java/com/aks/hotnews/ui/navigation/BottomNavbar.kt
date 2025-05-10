@@ -1,10 +1,8 @@
 package com.aks.hotnews.ui.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -14,17 +12,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.aks.hotnews.redux.news.AppState
+import org.reduxkotlin.Store
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BottomNav() {
+fun BottomNav(store: Store<AppState>) {
 
     val navController = rememberNavController()
 
@@ -43,7 +42,7 @@ fun BottomNav() {
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            MyNavGraph(navController = navController)
+            MyNavGraph(navController = navController, store)
         }
     }
 }
@@ -83,7 +82,7 @@ fun NavigatorBar(currentBackStackEntry: NavBackStackEntry?, navController: NavCo
                 }, label = {
                     Text(text = item.title, fontSize = 12.sp)
                 },
-                alwaysShowLabel = false,
+                alwaysShowLabel = true,
             )
         }
     }

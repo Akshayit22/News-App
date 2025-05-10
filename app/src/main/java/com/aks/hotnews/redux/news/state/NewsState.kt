@@ -8,5 +8,6 @@ data class NewsState(
     val isLoading: Boolean = false,
     val topNews: TopNews? = null,
     val searchNews: NewsModel? = null,
-    val error: String? = null
+    val error: String? = null,
+    val isTopNewsLoaded: Boolean = false
 )
