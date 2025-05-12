@@ -30,7 +30,7 @@ fun SearchNewsScreens() {
             .nestedScroll(connection = scrollBehavior.nestedScrollConnection),
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Hot News", fontSize = 18.sp, fontStyle = FontStyle.Italic ) },
+                title = { Text("Search News", fontSize = 18.sp, fontStyle = FontStyle.Italic ) },
                 navigationIcon = {
                     IconButton(onClick = {  }) {
                         Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
@@ -51,8 +51,7 @@ fun SearchNewsScreens() {
         Column(
             modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding(), bottom = 100.dp)
         ) {
-            Text(text = "Account", fontSize = 32.sp)
+
         }
     }
-
 }
