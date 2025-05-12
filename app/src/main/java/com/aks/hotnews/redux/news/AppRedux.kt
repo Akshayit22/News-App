@@ -1,7 +1,5 @@
 package com.aks.hotnews.redux.news
 
-import androidx.lifecycle.viewModelScope
-import com.aks.hotnews.data.repository.NewsRepository
 import com.aks.hotnews.redux.news.middelware.createNewsMiddleware
 import com.aks.hotnews.redux.news.reducer.newsReducer
 import com.aks.hotnews.redux.news.state.NewsState

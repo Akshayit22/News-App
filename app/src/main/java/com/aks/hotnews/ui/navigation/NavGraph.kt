@@ -18,7 +18,7 @@ import org.reduxkotlin.Store
 
 @Composable
 fun MyNavGraph(navController: NavHostController, store: Store<AppState>) {
-    NavHost(navController = navController, startDestination = Search::class.simpleName!!) {
+    NavHost(navController = navController, startDestination = Home::class.simpleName!!) {
         composable(Home::class.simpleName!!) {
             HomeScreen(navController, store)
         }
@@ -38,7 +38,7 @@ fun MyNavGraph(navController: NavHostController, store: Store<AppState>) {
             SearchNewsScreens()
         }
         composable(Settings::class.simpleName!!) {
-            SettingsScreen()
+            SettingsScreen(store)
         }
         composable(Saved::class.simpleName!!) {
             SavedScreen()

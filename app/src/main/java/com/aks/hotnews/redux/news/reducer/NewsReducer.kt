@@ -10,6 +10,8 @@ val newsReducer: Reducer<NewsState> = { state, action ->
         is NewsAction.TopNewsSuccess -> state.copy(isLoading = false, topNews = action.data, error = null)
         is NewsAction.SearchNewsSuccess -> state.copy(isLoading = false, searchNews = action.data, error = null)
         is NewsAction.Error -> state.copy(isLoading = false, error = action.message)
+        is NewsAction.SetLanguage -> state.copy(languageCode = action.languageCode, topNews = null, searchNews = null)
+        is NewsAction.SetCountry -> state.copy(countryCode = action.countryCode, topNews = null, searchNews = null)
         else -> state
     }
 }

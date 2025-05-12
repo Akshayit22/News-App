@@ -1,6 +1,8 @@
 package com.aks.hotnews.redux.news.actions
 
 import com.aks.hotnews.data.model.news.NewsModel
+import com.aks.hotnews.data.model.other.CountryCode
+import com.aks.hotnews.data.model.other.LanguageCode
 import com.aks.hotnews.data.model.topnews.TopNews
 
 sealed class NewsAction {
@@ -8,6 +10,8 @@ sealed class NewsAction {
     data class TopNewsSuccess(val data: TopNews) : NewsAction()
     data class SearchNewsSuccess(val data: NewsModel) : NewsAction()
     data class Error(val message: String) : NewsAction()
+    data class SetLanguage(val languageCode: LanguageCode) : NewsAction()
+    data class SetCountry(val countryCode: CountryCode) : NewsAction()
 
     data class FetchTopNews(
         val language: String,

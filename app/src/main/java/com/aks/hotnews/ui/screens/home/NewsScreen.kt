@@ -25,6 +25,8 @@ import com.aks.hotnews.ui.components.news.SkeletonNewsItem
 fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
     val state = viewModel.state.value
     val page = viewModel.topNewsPage.value
+    val language = state.languageCode?.Code ?: "en"
+    val country = state.countryCode?.Code ?: "in"
 
     val pullRefreshState = rememberPullRefreshState(
         refreshing = viewModel.pullToRefreshState.value,
@@ -34,7 +36,7 @@ fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
     LaunchedEffect(Unit) {
         if (state.topNews == null) {
             Log.d("NewsScreen", "Making API call")
-            viewModel.fetchTopNews(language = "en", country = "in")
+            viewModel.fetchTopNews(language = language, country = country)
         } else {
             Log.d("NewsScreen", "Top news already loaded")
         }
@@ -80,12 +82,6 @@ fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
                     modifier = Modifier.align(Alignment.TopCenter)
                 )
             }
-
-//            LazyColumn {
-//                items(newsList) { article ->
-//                    NewsItem(article, navController = navController)
-//                }
-//            }
         }
 
 //        state.searchNews != null -> {
@@ -100,6 +96,10 @@ fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
 
         else -> {
             Text("No data loaded")
+
+            Text("Country selected: ${state.countryCode?.Country}")
+
+            Text("Language selected: ${state.languageCode?.Language}")
         }
     }
 }

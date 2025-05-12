@@ -17,9 +17,13 @@ import com.aks.hotnews.data.model.other.LanguageCode
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LanguageDropdown(languages: List<LanguageCode>, modifier: Modifier = Modifier) {
+fun LanguageDropdown(
+    languages: List<LanguageCode>,
+    modifier: Modifier = Modifier,
+    selectedLanguage: LanguageCode,
+    onLanguageSelected: (LanguageCode) -> Unit,
+) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedLanguage by remember { mutableStateOf(LanguageCode("English", "en")) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -44,7 +48,7 @@ fun LanguageDropdown(languages: List<LanguageCode>, modifier: Modifier = Modifie
                 DropdownMenuItem(
                     text = { Text("${language.Language} (${language.Code})") },
                     onClick = {
-                        selectedLanguage = language
+                        onLanguageSelected(language)
                         expanded = false
                     }
                 )

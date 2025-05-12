@@ -18,9 +18,13 @@ import com.aks.hotnews.data.model.other.CountryCode
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CountryDropdown(countries: List<CountryCode>, modifier: Modifier = Modifier) {
+fun CountryDropdown(
+    countries: List<CountryCode>,
+    modifier: Modifier = Modifier,
+    selectedCountry: CountryCode,
+    onCountrySelected: (CountryCode) -> Unit,
+) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedCountry by remember { mutableStateOf(CountryCode("India", "in")) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -45,7 +49,7 @@ fun CountryDropdown(countries: List<CountryCode>, modifier: Modifier = Modifier)
                 DropdownMenuItem(
                     text = { Text("${country.Country} (${country.Code})") },
                     onClick = {
-                        selectedCountry = country
+                        onCountrySelected(country)
                         expanded = false
                     }
                 )
