@@ -36,14 +36,6 @@ fun SearchNewsScreens() {
                         Icon(imageVector = Icons.Filled.Home, contentDescription = "Home")
                     }
                 },
-                actions = {
-                    IconButton(onClick = { }) {
-                        Icon(
-                            imageVector = Icons.Filled.Refresh,
-                            contentDescription = "Mark as favorite"
-                        )
-                    }
-                },
                 scrollBehavior = scrollBehavior,
             )
         }
@@ -51,7 +43,7 @@ fun SearchNewsScreens() {
         Column(
             modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding(), bottom = 100.dp)
         ) {
-
+            SearchNewsScreen()
         }
     }
 }

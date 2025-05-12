@@ -28,17 +28,17 @@ import androidx.compose.ui.unit.dp
 fun SkeletonNewsItem() {
 
     val shimmerColors = listOf(
-        Color.LightGray.copy(alpha = 0.9f),
-        Color(0xFFC0C0C0), // Silver
-        Color.LightGray.copy(alpha = 0.9f)
+        Color.LightGray.copy(alpha = 0.8f),
+        Color(0xFFCCC8C8), // Silver
+        Color.LightGray.copy(alpha = 0.8f)
     )
 
     val transition = rememberInfiniteTransition(label = "shimmer")
     val translateAnim = transition.animateFloat(
         initialValue = 0f,
-        targetValue = 1000f,
+        targetValue = 1200f,
         animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000, easing = LinearEasing),
+            animation = tween(durationMillis = 1200, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         ),
         label = "shimmerAnim"
