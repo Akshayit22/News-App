@@ -50,4 +50,9 @@ class SearchViewModel(val store: Store<AppState>) : ViewModel() {
         store.dispatch(NewsAction.SetSearchQuery(query))
     }
 
+    fun refreshSearchPage(offset:Int){
+        store.dispatch(NewsAction.SetSearchOffset(offset))
+        _pullToRefreshState.value = false
+    }
+
 }

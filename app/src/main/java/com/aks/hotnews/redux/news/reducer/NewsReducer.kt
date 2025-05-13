@@ -14,6 +14,7 @@ val newsReducer: Reducer<NewsState> = { state, action ->
         is NewsAction.SetCountry -> state.copy(countryCode = action.countryCode, topNews = null, searchNews = null)
         is NewsAction.SetTopNewsPage -> state.copy(topNewsPage = action.pageValue)
         is NewsAction.SetSearchQuery -> state.copy(searchQuery = action.query, searchNews = null)
+        is NewsAction.SetSearchOffset -> state.copy(searchOffset = action.offset)
         else -> state
     }
 }

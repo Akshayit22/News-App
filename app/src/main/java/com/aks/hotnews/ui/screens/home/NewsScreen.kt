@@ -86,10 +86,6 @@ fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
 
         else -> {
             Text("No data loaded")
-
-            Text("Country selected: ${state.countryCode?.Country}")
-
-            Text("Language selected: ${state.languageCode?.Language}")
         }
     }
 }

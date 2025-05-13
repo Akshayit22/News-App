@@ -13,7 +13,8 @@ sealed class NewsAction {
     data class SetLanguage(val languageCode: LanguageCode) : NewsAction()
     data class SetCountry(val countryCode: CountryCode) : NewsAction()
     data class SetTopNewsPage(val pageValue: Int) : NewsAction()
-    data class SetSearchQuery(val query:String) : NewsAction()
+    data class SetSearchOffset(val offset: Int) : NewsAction()
+    data class SetSearchQuery(val query: String) : NewsAction()
 
     data class FetchTopNews(
         val language: String,
