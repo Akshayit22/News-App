@@ -60,7 +60,6 @@ fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
                 } else {
                     Text("Error: ${state.error}")
                 }
-
             }
         }
 
@@ -84,15 +83,6 @@ fun NewsScreen(viewModel: NewsViewModel, navController: NavController) {
             }
         }
 
-//        state.searchNews != null -> {
-//            LazyColumn(
-//                modifier = Modifier.padding(bottom = 100.dp)
-//            ) {
-//                items(state.searchNews.news) { article ->
-//                    NewsItem(article, navController = navController)
-//                }
-//            }
-//        }
 
         else -> {
             Text("No data loaded")

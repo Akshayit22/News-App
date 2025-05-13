@@ -13,4 +13,6 @@ data class NewsState(
     val isTopNewsLoaded: Boolean = false,
     val languageCode: LanguageCode?  = LanguageCode("English", "en"),
     val countryCode: CountryCode? = CountryCode("India", "in"),
+    val topNewsPage: Int? = 0,
+    val searchQuery: String = ""
 )

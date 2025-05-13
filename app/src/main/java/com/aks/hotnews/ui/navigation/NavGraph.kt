@@ -11,14 +11,14 @@ import com.aks.hotnews.redux.news.AppState
 import com.aks.hotnews.ui.screens.detail.DetailScreen
 import com.aks.hotnews.ui.screens.home.HomeScreen
 import com.aks.hotnews.ui.screens.saved.SavedScreen
-import com.aks.hotnews.ui.screens.searchNews.SearchNewsScreens
+import com.aks.hotnews.ui.screens.searchNews.SearchNews
 import com.aks.hotnews.ui.screens.settings.SettingsScreen
 import com.google.gson.Gson
 import org.reduxkotlin.Store
 
 @Composable
 fun MyNavGraph(navController: NavHostController, store: Store<AppState>) {
-    NavHost(navController = navController, startDestination = Home::class.simpleName!!) {
+    NavHost(navController = navController, startDestination = Search::class.simpleName!!) {
         composable(Home::class.simpleName!!) {
             HomeScreen(navController, store)
         }
@@ -35,7 +35,7 @@ fun MyNavGraph(navController: NavHostController, store: Store<AppState>) {
         }
 
         composable(Search::class.simpleName!!) {
-            SearchNewsScreens()
+            SearchNews(navController,store)
         }
         composable(Settings::class.simpleName!!) {
             SettingsScreen(store)

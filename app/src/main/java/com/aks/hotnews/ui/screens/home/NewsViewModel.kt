@@ -17,7 +17,7 @@ class NewsViewModel(val store: Store<AppState>) : ViewModel() {
     private val _state = mutableStateOf(store.state.newsState)
     val state: State<NewsState> = _state
 
-    private val _topNewsPage = mutableIntStateOf(0)
+    private val _topNewsPage = mutableIntStateOf(state.value.topNewsPage!!.toInt())
     private val _pullToRefreshState = mutableStateOf(false)
 
     var pullToRefreshState: State<Boolean> = _pullToRefreshState
@@ -46,29 +46,7 @@ class NewsViewModel(val store: Store<AppState>) : ViewModel() {
         )
     }
 
-    fun fetchSearchNews(
-        language: String,
-        offset: Int,
-        number: Int,
-        country: String? = null,
-        text: String? = null,
-        earliestPublishDate: String? = null,
-        sort: String? = null,
-        sortDirection: String? = null
-    ) {
-        store.dispatch(
-            NewsAction.FetchSearchNews(
-                language = language,
-                offset = offset,
-                number = number,
-                country = country,
-                text = text,
-                earliestPublishDate = earliestPublishDate,
-                sort = sort,
-                sortDirection = sortDirection
-            )
-        )
-    }
+
 
     fun topNewsPageRefresh(){
         _pullToRefreshState.value = true
@@ -82,7 +60,7 @@ class NewsViewModel(val store: Store<AppState>) : ViewModel() {
             } else {
                 _topNewsPage.intValue = (0 until maxPages).random()
             }
-
+            store.dispatch(NewsAction.SetTopNewsPage(_topNewsPage.intValue))
             _pullToRefreshState.value = false
         }
     }

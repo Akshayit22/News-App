@@ -25,11 +25,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SkeletonNewsItem() {
-
+fun SkeletonNewsItem(modifier: Modifier = Modifier) {
     val shimmerColors = listOf(
         Color.LightGray.copy(alpha = 0.8f),
-        Color(0xFFCCC8C8), // Silver
+        Color(0xFFCCC8C8),
         Color.LightGray.copy(alpha = 0.8f)
     )
 
@@ -53,9 +52,7 @@ fun SkeletonNewsItem() {
     Card(
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
+        modifier = modifier.padding(8.dp)
     ) {
         Column {
             Box(
