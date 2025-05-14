@@ -56,7 +56,7 @@ fun SearchNewsScreen(navController: NavController, viewModel: SearchViewModel) {
     val state = viewModel.state.value
     val language = state.languageCode?.Code ?: "en"
     val country = state.countryCode?.Code ?: "in"
-    var offset by remember { mutableStateOf(state.searchOffset?: 0) }
+    val offset = viewModel.searchOffset.value
 
     val categoryList = listOf(
         "Technology", "Business", "Entertainment", "Health", "Global Economy",
@@ -69,19 +69,22 @@ fun SearchNewsScreen(navController: NavController, viewModel: SearchViewModel) {
     val pullRefreshState = rememberPullRefreshState(
         refreshing = viewModel.pullToRefreshState.value,
         onRefresh = {
-            viewModel.refreshSearchPage(offset + 1)
+            viewModel.refreshSearchPage()
         }
     )
 
-    LaunchedEffect(state.searchQuery, state.searchOffset) {
+    LaunchedEffect(state.searchQuery) {
+//        Log.d("SearchNews", "LaunchedEffect triggered: query=${state.searchQuery}, offset=$offset")
         if (state.searchNews == null) {
             Log.d("SearchNews", "Making API call")
+//            Log.d("SearchNews", "query : ${state.searchQuery}")
+//            Log.d("SearchNews", "offset : ${state.searchOffset}")
             viewModel.fetchSearchNews(
                 language = language,
                 country = country,
                 text = state.searchQuery,
-                offset = state.searchOffset ?: 0,
-                number = 30
+                offset = offset,
+                number = viewModel.DEFAULT_PAGE_SIZE
             )
         } else {
             Log.d("SearchNews", "Search news already loaded")
@@ -111,14 +114,14 @@ fun SearchNewsScreen(navController: NavController, viewModel: SearchViewModel) {
                     IconButton(
                         onClick = {
                             isSearchExpanded = false
-                            if (searchQuery != "") {
+                            if (searchQuery != state.searchQuery) {
                                 viewModel.setSearchQuery(searchQuery)
                             }
                         },
                         modifier = Modifier
                             .padding(end = 2.dp)
                             .background(
-                                MaterialTheme.colorScheme.primary.copy(0.7f),
+                                MaterialTheme.colorScheme.primary.copy(0.4f),
                                 CircleShape
                             )
                     ) {
@@ -160,8 +163,14 @@ fun SearchNewsScreen(navController: NavController, viewModel: SearchViewModel) {
             Button(
                 onClick = {
                     isSearchExpanded = false
-                    selectedCategory = category
-                    viewModel.setSearchQuery(category)
+
+                    if(selectedCategory == category){
+                        selectedCategory = ""
+                        viewModel.setSearchQuery("")
+                    }else{
+                        selectedCategory = category
+                        viewModel.setSearchQuery(category)
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (selectedCategory == category) MaterialTheme.colorScheme.primary.copy(
