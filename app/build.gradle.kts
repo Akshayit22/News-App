@@ -47,6 +47,11 @@ android {
         compose = true
         buildConfig = true
     }
+    kapt {
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
 }
 
 dependencies {
@@ -108,7 +113,7 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:$coil_version")
     implementation("androidx.compose.runtime:runtime-livedata:1.7.6")
 
-    val room = "2.6.0"
+    val room = "2.7.0-alpha01"
 
     // Room
     implementation("androidx.room:room-runtime:$room")

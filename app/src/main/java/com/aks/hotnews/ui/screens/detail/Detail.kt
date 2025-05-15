@@ -1,6 +1,6 @@
 package com.aks.hotnews.ui.screens.detail
 
-import androidx.compose.foundation.background
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,6 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -36,12 +38,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.aks.hotnews.data.model.news.News
+import com.aks.hotnews.redux.news.AppState
+import org.reduxkotlin.Store
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(news: News, onBack: () -> Unit = {}) {
+fun DetailScreen(news: News, onBack: () -> Unit = {}, store: Store<AppState>) {
     val scrollState = rememberScrollState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    val viewModel = remember { DetailViewModel(store) }
+    val stateFlow = viewModel.state
+    val state = stateFlow.collectAsState().value
+
+    val isBookmarked = state.bookmarkedNews.any { it.id == news.id }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -55,11 +67,11 @@ fun DetailScreen(news: News, onBack: () -> Unit = {}) {
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { viewModel.toggleBookmark(news) }) {
                         Icon(
                             imageVector = Icons.Outlined.Star,
                             contentDescription = "Mark as favorite",
-                            // tint = Color.Yellow
+                            tint = if (isBookmarked) Color.Yellow else MaterialTheme.colorScheme.onBackground
                         )
                     }
                 },

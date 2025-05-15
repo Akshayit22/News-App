@@ -74,11 +74,8 @@ fun SearchNewsScreen(navController: NavController, viewModel: SearchViewModel) {
     )
 
     LaunchedEffect(state.searchQuery) {
-//        Log.d("SearchNews", "LaunchedEffect triggered: query=${state.searchQuery}, offset=$offset")
         if (state.searchNews == null) {
             Log.d("SearchNews", "Making API call")
-//            Log.d("SearchNews", "query : ${state.searchQuery}")
-//            Log.d("SearchNews", "offset : ${state.searchOffset}")
             viewModel.fetchSearchNews(
                 language = language,
                 country = country,

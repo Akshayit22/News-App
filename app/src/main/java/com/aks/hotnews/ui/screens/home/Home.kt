@@ -3,6 +3,8 @@ package com.aks.hotnews.ui.screens.home
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Refresh
@@ -22,13 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aks.hotnews.redux.news.AppState
+import com.aks.hotnews.ui.components.news.NewsItem
+import com.aks.hotnews.utils.helper.newsList
 import org.reduxkotlin.Store
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController, store: Store<AppState>) {
 
-//    val data = newsList
+    //val data = newsList
 
     //NewsScreen(remember { NewsViewModel() },navController)
 
@@ -59,7 +63,9 @@ fun HomeScreen(navController: NavController, store: Store<AppState>) {
                 },
                 actions = {
                     IconButton(onClick = {
-                        viewModel.topNewsPageRefresh()
+                        if (viewModel.state.value.topNews != null) {
+                            viewModel.topNewsPageRefresh()
+                        }
                     }) {
                         Icon(
                             imageVector = Icons.Filled.Refresh,
@@ -70,11 +76,13 @@ fun HomeScreen(navController: NavController, store: Store<AppState>) {
                 scrollBehavior = scrollBehavior,
             )
         }
-    ){ paddingValues ->
+    ) { paddingValues ->
         Column(
-            modifier = Modifier.fillMaxSize().padding(top = paddingValues.calculateTopPadding(), bottom = 100.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = paddingValues.calculateTopPadding(), bottom = 100.dp)
         ) {
-            NewsScreen(viewModel,navController)
+            NewsScreen(viewModel, navController)
         }
 //        LazyColumn(
 //            modifier = Modifier.padding(top = paddingValues.calculateTopPadding(), bottom = 100.dp)
@@ -84,7 +92,6 @@ fun HomeScreen(navController: NavController, store: Store<AppState>) {
 //            }
 //        }
     }
-
 
 
 }

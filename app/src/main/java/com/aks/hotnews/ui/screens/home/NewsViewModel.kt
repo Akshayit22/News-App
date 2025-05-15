@@ -46,8 +46,6 @@ class NewsViewModel(val store: Store<AppState>) : ViewModel() {
         )
     }
 
-
-
     fun topNewsPageRefresh(){
         _pullToRefreshState.value = true
 

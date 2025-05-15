@@ -1,9 +1,14 @@
 package com.aks.hotnews.redux.news
 
+import com.aks.hotnews.HotNewsApp
+import com.aks.hotnews.data.db.BookmarkDao
+import com.aks.hotnews.data.db.repository.BookmarkRepository
+import com.aks.hotnews.redux.news.middelware.createBookmarkMiddleware
 import com.aks.hotnews.redux.news.middelware.createNewsMiddleware
 import com.aks.hotnews.redux.news.reducer.newsReducer
 import com.aks.hotnews.redux.news.state.NewsState
 import org.reduxkotlin.Reducer
+import org.reduxkotlin.Store
 import org.reduxkotlin.applyMiddleware
 import org.reduxkotlin.createThreadSafeStore
 
@@ -15,10 +20,10 @@ val appReducer: Reducer<AppState> = { state, action ->
     state.copy(newsState = newsReducer(state.newsState, action))
 }
 
-object StoreProvider {
-    val store = createThreadSafeStore(
+fun StoreProvider(dao: BookmarkDao): Store<AppState> {
+    return createThreadSafeStore(
         reducer = appReducer,
         preloadedState = AppState(),
-        enhancer = applyMiddleware(createNewsMiddleware())
+        enhancer = applyMiddleware(createNewsMiddleware(), createBookmarkMiddleware(BookmarkRepository(dao)))
     )
 }

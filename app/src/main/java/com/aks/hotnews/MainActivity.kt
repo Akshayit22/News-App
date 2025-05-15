@@ -26,7 +26,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val store: Store<AppState> = StoreProvider.store
+        val dao = (application as HotNewsApp).database.bookmarkDao()
+        val store: Store<AppState> = StoreProvider(dao)
 
         setContent {
             HotNewsTheme {

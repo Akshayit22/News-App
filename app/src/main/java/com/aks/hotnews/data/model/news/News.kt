@@ -8,7 +8,7 @@ data class News(
     val image: String,
     val language: String,
     val publish_date: String,
-    val sentiment: Double,
+    val sentiment: Double?,
     val source_country: String,
     val summary: String,
     val text: String,

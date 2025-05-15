@@ -1,5 +1,6 @@
 package com.aks.hotnews.redux.news.actions
 
+import com.aks.hotnews.data.model.news.News
 import com.aks.hotnews.data.model.news.NewsModel
 import com.aks.hotnews.data.model.other.CountryCode
 import com.aks.hotnews.data.model.other.LanguageCode
@@ -32,4 +33,11 @@ sealed class NewsAction {
         val sort: String? = null,
         val sortDirection: String? = null
     ) : NewsAction()
+
+    // News Book Mark related
+
+    object LoadBookmarks : NewsAction()
+    data class SetBookmarks(val articles: List<News>) : NewsAction()
+    data class ToggleBookmark(val article: News): NewsAction()
+
 }

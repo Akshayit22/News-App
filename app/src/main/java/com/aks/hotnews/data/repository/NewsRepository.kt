@@ -1,12 +1,10 @@
 package com.aks.hotnews.data.repository
 
-import android.annotation.SuppressLint
 import android.util.Log
 import com.aks.hotnews.BuildConfig
 import com.aks.hotnews.data.model.news.NewsModel
 import com.aks.hotnews.data.model.topnews.TopNews
 import com.aks.hotnews.data.remote.RetrofitInstance
-import com.aks.hotnews.utils.network.NetworkResponse
 
 class NewsRepository {
     private val apiService = RetrofitInstance.api
